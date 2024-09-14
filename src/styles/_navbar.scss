@@ -1,0 +1,9 @@
+$primary-color: #3498db;
+
+.navbar{
+    background-color: $primary-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
