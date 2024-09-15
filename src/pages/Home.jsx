@@ -4,6 +4,7 @@ import { Navbar } from "../components/Navbar";
 import { useThreadData } from "../hooks/useThreadData";
 import {useStore} from "../Stores/store"
 import DOMPurify from 'dompurify'; // Si decides usar sanitización
+import Form from "../components/Form";
 
 export const Home = () => {
   const threadData = useStore((state) => state.threadData);
@@ -19,10 +20,11 @@ export const Home = () => {
   return (
     <div>
       <Navbar />
-      <h1>Hola</h1>
       <div
         dangerouslySetInnerHTML={{ __html: sanitizedContent }}
       />
+
+     <Form forms={threadData?.agreement?.forms} button={threadData?.agreement}/> 
     </div>
   );
 };
