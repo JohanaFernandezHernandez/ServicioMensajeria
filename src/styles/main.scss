@@ -1,11 +1,17 @@
-@use './navbar';
-@use './home';
-@use './form';
+@use "./navbar";
+@use "./home";
+@use "./form";
+@use "./footer";
 
-#root{
-    margin: 0px;
+#root {
+  margin: 0px;
 }
 
-body{
-    margin: 0px ;
+body {
+  margin: 0px;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #333;
+  font-size: 14px;
+  background-color: #f4efef;
 }

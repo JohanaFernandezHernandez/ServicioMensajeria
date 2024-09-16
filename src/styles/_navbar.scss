@@ -1,9 +1,43 @@
-$primary-color: #3498db;
+$primary-color: white;
+$secondary-color: #CA8888;
+$tertiary-color: #e2ecf980;
 
-.navbar{
-    background-color: $primary-color;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px;
+.navbar {
+  background-color: $primary-color;
+  box-shadow: 0px 10px 60px 0px $tertiary-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 100px;
+  gap: 30px;
+
+  span {
+    color: $secondary-color;
+    font-weight: 600;
+    font-size: 16px;
+  }
+}
+
+.button_estados {
+  text-decoration: none;
+  width: 300px;
+  height: 45px;
+  border: 1px solid $secondary-color;
+  border-radius: 7px;
+  color: $primary-color;
+  font-weight: 400;
+  font-size: 14px;
+  background: linear-gradient(90deg, #AC4747 0%, #FFAAAA 100%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+
+  &:focus {
+    outline: none;
+  }
+
+  span {
+    color: $primary-color;
+  }
 }

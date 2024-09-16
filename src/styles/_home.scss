@@ -1,0 +1,39 @@
+.thread-content {
+  font-family: Arial, sans-serif;
+  color: #333;
+  line-height: 1.5;
+  padding: 20px;
+  font-size: 14px;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+
+  strong {
+    font-weight: bold;
+    color: #000;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  ul {
+    padding-left: 20px;
+    list-style-type: disc;
+  }
+
+  a {
+    color: #007bff;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

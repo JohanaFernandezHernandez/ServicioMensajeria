@@ -4,7 +4,6 @@ import { useStore } from "../Stores/store";
 
 export const Navbar = () => {
   const threadData = useStore((state) => state.threadData);
-
   console.log("estado", threadData);
 
   const [showHistory, setShowHistory] = useState(false);
@@ -15,22 +14,22 @@ export const Navbar = () => {
       return 'No hay historial';
     }
     
-    // Ordena el historial por fecha en orden descendente
+    // Ordena el historial
     const sortedHistory = [...threadData.history].sort((a, b) => new Date(b.date) - new Date(a.date));
     
-    // Devuelve el estado más reciente
+    // Devuelve estado mas reciente.
     return sortedHistory[0]?.status || 'Sin estado';
   };
 
   return (
     <nav className="navbar">
-      <div>CFS Code:{threadData?.cfscode} </div>
-      <div>Sender: {threadData?.sender?.user}</div>
-      <div>Recipient: {threadData?.recipient?.address}</div>
+      <div><span>Código CFS:</span> {threadData?.cfscode}</div>
+      <div><span>Emisor del hilo:</span> {threadData?.sender?.user}</div>
+      <div><span>Destinatario del Hilo:</span> {threadData?.recipient?.address}</div>
       <div>
-      <button onClick={() => setShowHistory(!showHistory)}>
-        Estado Actual: {getMostRecentStatus()} 
-      </button>
+        <button className="button_estados" onClick={() => setShowHistory(!showHistory)}>
+          <span>Histórico de estados:</span> {getMostRecentStatus()} 
+        </button>
         {showHistory && (
           <ul>
             {threadData?.history.map((item, index) => (
