@@ -6,7 +6,7 @@ import { useStore } from "../Stores/store";
 import DOMPurify from "dompurify"; // Si decides usar sanitización
 import Form from "../components/Form";
 import { Footer } from "../components/Footer";
-import "../styles/main.scss";
+import "../styles/home.scss";
 
 export const Home = () => {
   const threadData = useStore((state) => state.threadData);

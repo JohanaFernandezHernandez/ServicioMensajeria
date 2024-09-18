@@ -1,0 +1,12 @@
+@use "./mixins/text-style" as *;
+@use "./mixins/flex-container" as *;
+
+
+
+.form {
+    @include text-style();
+    line-height: 1.5;
+    padding: 20px;
+    max-width: 1200px;
+    @include flex-container(column, flex-start, flex-start);
+  }

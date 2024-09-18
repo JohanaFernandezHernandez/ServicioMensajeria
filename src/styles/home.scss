@@ -1,35 +1,28 @@
-@use './mixins/mediaQuery' as *; 
+@use "./mixins/mediaQuery" as *;
+@use "./mixins/text-style" as *;
+@use "./mixins/flex-container" as *;
+$secondary-color: #ca8888;
 
 
-.container_principal{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.container_principal {
+  @include flex-container(column, center, center);
   width: 100%;
 }
 
-.main{
+.main {
   margin: 70px auto;
 
   @include dispositivo(tablet) {
     margin: 200px auto;
   }
-
 }
 
-
 .thread-content {
-  font-family: Arial, sans-serif;
-  color: #333;
+  @include text-style();
   line-height: 1.5;
   padding: 20px;
-  font-size: 14px;
   max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  
+  @include flex-container(column, flex-start, flex-start);
 
   strong {
     font-weight: bold;
@@ -50,7 +43,7 @@
   }
 
   a {
-    color: #CA8888;
+    color: $secondary-color;
     text-decoration: underline;
 
     &:hover {

@@ -1,4 +1,6 @@
 @use "./mixins/mediaQuery" as *;
+@use "./mixins/flex-container" as *;
+@use "./mixins/box-shadow" as *;
 
 $primary-color: white;
 $secondary-color: #ca8888;
@@ -6,47 +8,46 @@ $tertiary-color: #e2ecf980;
 
 // Navbar Block
 .navbar {
+  @include flex-container(center, center, center);
   position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
   background-color: $primary-color;
-  box-shadow: 0px 10px 60px 0px $tertiary-color;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include box-shadow(0px, 10px, 60px, $tertiary-color);
   width: 100%;
 
   &__item {
-    padding: 20px;
+    // border: solid red 1px;
+    width: min-content;
+    @include flex-item(20px);
+    &-description {
+      color: $secondary-color;
+      font-size: 16px;
+      font-weight: 600;
+    }
   }
 
   &__button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include flex-container(column, center, center);
 
     &__history {
       list-style: none;
       padding: 0;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      @include flex-container(column, center, center);
     }
   }
 
   @include dispositivo(tablet) {
     flex-direction: column;
-    align-items: center;
     gap: 10px;
 
     &__item {
-      padding: 10px;
+      @include flex-item(10px);
     }
   }
-
 }
 
 .button_estados {
@@ -60,9 +61,7 @@ $tertiary-color: #e2ecf980;
   font-size: 14px;
   background: linear-gradient(90deg, #ac4747 0%, #ffaaaa 100%);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-container(row, center, center);
 
   &:focus {
     outline: none;

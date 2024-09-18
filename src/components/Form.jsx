@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useThreadData } from "../hooks/useThreadData";
 import { useStore } from "../Stores/store";
-import "../styles/main.scss";
+import "../styles/form.scss";
 
 const Form = ({ forms, button }) => {
   const threadData = useStore((state) => state.threadData);
