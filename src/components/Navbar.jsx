@@ -6,6 +6,7 @@ export const Navbar = () => {
   const threadData = useStore((state) => state.threadData);
 
   const [showHistory, setShowHistory] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Encuentra el estado más reciente
   const getMostRecentStatus = () => {
@@ -24,17 +25,31 @@ export const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar__item">
-        <span className="navbar__item-description">Código CFS:</span>{" "}
-        {threadData?.cfscode}
-      </div>
-      <div className="navbar__item">
-        <span className="navbar__item-description">Emisor del hilo:</span>{" "}
-        {threadData?.sender?.user}
-      </div>
-      <div className="navbar__item">
-        <span className="navbar__item-description">Destinatario del Hilo:</span>{" "}
-        {threadData?.recipient?.address}
+      {/* Botón de menú hamburguesa */}
+      <button
+        className="navbar__hamburger"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+      >
+        <span className="navbar__hamburger-line"></span>
+        <span className="navbar__hamburger-line"></span>
+        <span className="navbar__hamburger-line"></span>
+      </button>
+
+      <div className={`navbar__menu ${isMenuOpen ? "navbar__menu--open" : ""}`}>
+        <div className="navbar__item">
+          <span className="navbar__item-description">Código CFS:</span>{" "}
+          {threadData?.cfscode}
+        </div>
+        <div className="navbar__item">
+          <span className="navbar__item-description">Emisor del hilo:</span>{" "}
+          {threadData?.sender?.user}
+        </div>
+        <div className="navbar__item">
+          <span className="navbar__item-description">
+            Destinatario del Hilo:
+          </span>{" "}
+          {threadData?.recipient?.address}
+        </div>
       </div>
       <div className="navbar__button-container">
         <button
@@ -46,12 +61,13 @@ export const Navbar = () => {
           </span>{" "}
           {getMostRecentStatus()}
         </button>
-        <ul className="navbar__button-container__history">
-          {showHistory &&
-            threadData?.history.map((item, index) => (
+        {showHistory && (
+          <ul className="navbar__button-container__history">
+            {threadData?.history.map((item, index) => (
               <li key={index}>{item.status}</li>
             ))}
-        </ul>
+          </ul>
+        )}
       </div>
     </nav>
   );

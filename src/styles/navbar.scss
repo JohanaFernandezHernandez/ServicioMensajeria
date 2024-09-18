@@ -6,7 +6,6 @@ $primary-color: white;
 $secondary-color: #ca8888;
 $tertiary-color: #e2ecf980;
 
-// Navbar Block
 .navbar {
   @include flex-container(center, center, center);
   position: fixed;
@@ -18,8 +17,51 @@ $tertiary-color: #e2ecf980;
   @include box-shadow(0px, 10px, 60px, $tertiary-color);
   width: 100%;
 
+  &__hamburger {
+    display: none;
+
+    @include dispositivo(tablet) {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      
+      .navbar__hamburger-line {
+        width: 25px;
+        height: 3px;
+        background: $secondary-color;
+        border-radius: 3px;
+      }
+    }
+  }
+
+  // Menú desplegable
+  &__menu {
+    display: flex; // Menú visible por defecto
+    align-items: flex-start;
+
+    @include dispositivo(tablet) {
+      display: none; 
+      flex-direction: column;
+      width: 100%;
+      background-color: $primary-color;
+      position: absolute;
+      top: 60px; // Ajusta según el tamaño del botón hamburguesa
+      left: 0;
+      transform: translateY(-10px);
+      transition: transform 0.3s ease-in-out;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+      &--open {
+        display: flex;
+        transform: translateY(0);
+      }
+    }
+  }
+
   &__item {
-    // border: solid red 1px;
     width: min-content;
     @include flex-item(20px);
     &-description {
@@ -41,8 +83,9 @@ $tertiary-color: #e2ecf980;
   }
 
   @include dispositivo(tablet) {
-    flex-direction: column;
+    justify-content: space-around;
     gap: 10px;
+    padding: 10px 0;
 
     &__item {
       @include flex-item(10px);
