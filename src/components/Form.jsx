@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { useThreadData } from "../hooks/useThreadData";
 import { useStore } from "../Stores/store";
@@ -18,6 +16,45 @@ const Form = ({ forms, button }) => {
       const updatedResponses = currentQuestionResponses.includes(oid)
         ? currentQuestionResponses.filter((responseOid) => responseOid !== oid)
         : [...currentQuestionResponses, oid];
+
+      // Actualizar el estado de las opciones seleccionadas en threadData
+      const updatedForms = threadData.agreement.forms.map((form) => {
+        if (form.fid === fid) {
+          return {
+            ...form,
+            questions: form.questions.map((question) => {
+              if (question.qid === qid) {
+                return {
+                  ...question,
+                  options: question.options.map((option) => {
+                    if (option.oid === oid) {
+                      return {
+                        ...option,
+                        selected: !option.selected, // Cambia el valor de selected
+                      };
+                    }
+                    return option;
+                  }),
+                };
+              }
+              return question;
+            }),
+          };
+        }
+        return form;
+      });
+
+      // Actualizar el store con los forms modificados
+      useStore.setState({
+        threadData: {
+          ...threadData,
+          agreement: {
+            ...threadData.agreement,
+            forms: updatedForms,
+          },
+        },
+      });
+
       return { ...prevResponses, [qid]: updatedResponses };
     });
   };
@@ -34,6 +71,7 @@ const Form = ({ forms, button }) => {
   const handleAcceptHilo = async () => {
     const updatedThreadData = {
       ...threadData,
+      closed: true,
       agreement: {
         ...threadData.agreement,
         forms: threadData.agreement.forms.map((form) => ({
@@ -52,8 +90,13 @@ const Form = ({ forms, button }) => {
       },
     };
 
-    // Realiza la solicitud de aceptación
-    await acceptHilo(updatedThreadData);
+    try {
+      // Realiza la solicitud de aceptación con los datos actualizados
+      await acceptHilo(updatedThreadData);
+      console.log("Hilo aceptado con éxito.");
+    } catch (error) {
+      console.error("Error al aceptar el hilo:", error);
+    }
   };
 
   return (
@@ -71,8 +114,16 @@ const Form = ({ forms, button }) => {
                   <div key={option.oid}>
                     <input
                       type="checkbox"
-                      onChange={() => handleCheckboxChange(form.fid, question.qid, option.oid)}
-                      checked={formResponses[question.qid]?.includes(option.oid) || false}
+                      onChange={() =>
+                        handleCheckboxChange(form.fid, question.qid, option.oid)
+                      }
+                      checked={
+                        threadData.agreement.forms
+                          .find((f) => f.fid === form.fid)
+                          ?.questions.find((q) => q.qid === question.qid)
+                          ?.options.find((o) => o.oid === option.oid)
+                          ?.selected || false
+                      }
                     />{" "}
                     {option.label}
                   </div>
@@ -83,7 +134,9 @@ const Form = ({ forms, button }) => {
                 <input
                   type="text"
                   value={formResponses[question.qid] || ""}
-                  onChange={(e) => handleTextChange(question.qid, e.target.value)}
+                  onChange={(e) =>
+                    handleTextChange(question.qid, e.target.value)
+                  }
                   minLength={question.options[0]?.input?.min || 0}
                   maxLength={question.options[0]?.input?.max || 100}
                 />
@@ -92,8 +145,13 @@ const Form = ({ forms, button }) => {
           ))}
         </div>
       ))}
-
-      <button onClick={handleAcceptHilo}>{button?.accept_button_text}</button>
+      {threadData.closed ? (
+        <>
+          <p>Hilo aceptado</p>
+        </>
+      ) : (
+        <button onClick={handleAcceptHilo}>{button?.accept_button_text}</button>
+      )}
     </div>
   );
 };

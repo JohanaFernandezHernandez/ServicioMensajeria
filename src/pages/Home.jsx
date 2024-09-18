@@ -10,10 +10,10 @@ import "../styles/main.scss";
 
 export const Home = () => {
   const threadData = useStore((state) => state.threadData);
-  const { gethilo } = useThreadData();
+  const { getHilo } = useThreadData();
 
   useEffect(() => {
-    gethilo();
+    getHilo();
   }, []);
 
   // Sanitiza el contenido para evitar XSS si es necesario

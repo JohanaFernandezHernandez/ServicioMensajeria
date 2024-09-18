@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useStore } from "../Stores/store";
+const CFSKEY = import.meta.env.VITE_CFSKEY;
+const CFSTOKEN = import.meta.env.VITE_CFSTOKEN;
 
 export const useThreadData = () => {
   const { setThreadData, setLoading, setError } = useStore((state) => ({
@@ -9,12 +11,11 @@ export const useThreadData = () => {
     setError: state.setError,
   }));
 
-  const gethilo = async () => {
+  //Obtener el hilo
+  const getHilo = async () => {
     try {
       const response = await axios.get(
-        `https://api-sandbox.confirmsign.com/v4.0/threads/token/${
-          import.meta.env.VITE_CFSKEY
-        }/${import.meta.env.VITE_CFSTOKEN}`
+        `https://api-sandbox.confirmsign.com/v4.0/threads/token/${CFSKEY}/${CFSTOKEN}`
       );
 
       if (response.status === 200) {
@@ -26,13 +27,18 @@ export const useThreadData = () => {
     }
   };
 
+  //Envió post al aceptar el hilo
   const acceptHilo = async (threadData) => {
+    console.log("🚀 ~ acceptHilo ~ threadData:", threadData)
     try {
       const response = await axios.post(
-        `https://api-sandbox.confirmsign.com/v4.0/threads/token/${
-          import.meta.env.VITE_CFSKEY
-        }/${import.meta.env.VITE_CFSTOKEN}/agreement/true`,
-        threadData,
+        `https://api-sandbox.confirmsign.com/v4.0/threads/token/${CFSKEY}/${CFSTOKEN}/agreement/true`,
+        [threadData],
+        {
+          headers: {
+            "Content-Type": "application/json", 
+          },
+        }
       );
 
       if (response.status === 201) {
@@ -46,7 +52,7 @@ export const useThreadData = () => {
   };
 
   return {
-    gethilo,
-    acceptHilo
+    getHilo,
+    acceptHilo,
   };
 };
