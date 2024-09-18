@@ -1,10 +1,9 @@
 import { useState } from "react";
-import "../styles/main.scss";
 import { useStore } from "../Stores/store";
+import "../styles/main.scss";
 
 export const Navbar = () => {
   const threadData = useStore((state) => state.threadData);
-  console.log("estado", threadData);
 
   const [showHistory, setShowHistory] = useState(false);
 
@@ -23,20 +22,18 @@ export const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div><span>Código CFS:</span> {threadData?.cfscode}</div>
-      <div><span>Emisor del hilo:</span> {threadData?.sender?.user}</div>
-      <div><span>Destinatario del Hilo:</span> {threadData?.recipient?.address}</div>
-      <div>
+      <div className="navbar__item"><span>Código CFS:</span> {threadData?.cfscode}</div>
+      <div className="navbar__item"><span>Emisor del hilo:</span> {threadData?.sender?.user}</div>
+      <div className="navbar__item"><span>Destinatario del Hilo:</span> {threadData?.recipient?.address}</div>
+      <div className="navbar__button-container">
         <button className="button_estados" onClick={() => setShowHistory(!showHistory)}>
           <span>Histórico de estados:</span> {getMostRecentStatus()} 
         </button>
-        {showHistory && (
-          <ul>
-            {threadData?.history.map((item, index) => (
-              <li key={index}>{item.status}</li>
-            ))}
-          </ul>
-        )}
+        <ul className="navbar__button-container__history">
+          {showHistory && threadData?.history.map((item, index) => (
+            <li key={index}>{item.status}</li>
+          ))}
+        </ul>
       </div>
     </nav>
   );

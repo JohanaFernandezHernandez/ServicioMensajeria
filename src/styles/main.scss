@@ -2,6 +2,8 @@
 @use "./home";
 @use "./form";
 @use "./footer";
+@use "./mixins/mediaQuery" as *;
+
 
 #root {
   margin: 0px;

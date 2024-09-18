@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useThreadData } from "../hooks/useThreadData";
 import { useStore } from "../Stores/store";
+import "../styles/main.scss";
 
 const Form = ({ forms, button }) => {
   const threadData = useStore((state) => state.threadData);
@@ -100,7 +101,7 @@ const Form = ({ forms, button }) => {
   };
 
   return (
-    <div>
+    <div className="form">
       {forms?.map((form) => (
         <div key={form.fid}>
           <h3>{form.title}</h3>
@@ -147,7 +148,7 @@ const Form = ({ forms, button }) => {
       ))}
       {threadData.closed ? (
         <>
-          <p>Hilo aceptado</p>
+          <p className="">Hilo aceptado</p>
         </>
       ) : (
         <button onClick={handleAcceptHilo}>{button?.accept_button_text}</button>

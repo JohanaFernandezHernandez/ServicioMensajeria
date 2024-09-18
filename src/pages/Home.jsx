@@ -20,9 +20,9 @@ export const Home = () => {
   const sanitizedContent = DOMPurify.sanitize(threadData?.content || "");
 
   return (
-    <div>
+    <div className="container_principal">
       <Navbar />
-      <main>
+      <main className="main">
         <div
           className="thread-content"
           dangerouslySetInnerHTML={{ __html: sanitizedContent }}
