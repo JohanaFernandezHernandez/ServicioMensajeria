@@ -15,8 +15,9 @@ $tertiary-color: #e2ecf980;
   transform: translateX(-50%);
   z-index: 1000;
   background-color: $primary-color;
-  @include box-shadow(0px, 10px, 60px, $tertiary-color);
   width: 100%;
+  @include box-shadow;
+
 
   &__hamburger {
     display: none;
@@ -74,19 +75,23 @@ $tertiary-color: #e2ecf980;
 
   &__button-container {
     @include flex-container(column, center, center);
+    padding: 15px;
 
     &__history {
       list-style: none;
       padding: 0;
       margin: 0;
       @include flex-container(column, center, center);
+      li{
+        margin-bottom: 5px;
+      }
     }
   }
 
   @include dispositivo(tablet) {
     justify-content: space-around;
     gap: 10px;
-    padding: 10px 0;
+    padding: 0px;
 
     &__item {
       @include flex-item(10px);
@@ -107,6 +112,7 @@ $tertiary-color: #e2ecf980;
   background: linear-gradient(90deg, #ac4747 0%, #ffaaaa 100%);
   cursor: pointer;
   @include flex-container(row, center, center);
+  margin-bottom: 8px;
 
   &:hover {
     background-color: #a65a5a;

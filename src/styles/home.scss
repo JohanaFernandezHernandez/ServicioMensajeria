@@ -15,7 +15,7 @@ $secondary-color: #ca8888;
   &__thread-content {
     @include text-style();
     line-height: 1.5;
-    padding: 20px 20px 0 20px;
+    padding: 30px 20px 0 20px;
     max-width: 1200px;
     @include flex-container(column, flex-start, flex-start);
 
