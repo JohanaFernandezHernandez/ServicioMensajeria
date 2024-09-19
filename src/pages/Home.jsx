@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { useThreadData } from "../hooks/useThreadData";
 import { useStore } from "../Stores/store";
@@ -20,11 +19,11 @@ export const Home = () => {
   const sanitizedContent = DOMPurify.sanitize(threadData?.content || "");
 
   return (
-    <div className="container_principal">
+    <div className="home">
       <Navbar />
-      <main className="main">
+      <main className="home__main">
         <div
-          className="thread-content"
+          className="home__thread-content"
           dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         />
         <Form
@@ -32,7 +31,6 @@ export const Home = () => {
           button={threadData?.agreement}
         />
       </main>
-
       <Footer />
     </div>
   );

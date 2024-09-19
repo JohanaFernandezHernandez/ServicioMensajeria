@@ -4,48 +4,46 @@
 $secondary-color: #ca8888;
 
 
-.container_principal {
+.home {
   @include flex-container(column, center, center);
   width: 100%;
-}
 
-.main {
-  margin: 70px auto;
-
-
-}
-
-.thread-content {
-  @include text-style();
-  line-height: 1.5;
-  padding: 20px 20px 0 20px;
-  max-width: 1200px;
-  @include flex-container(column, flex-start, flex-start);
-
-  strong {
-    font-weight: bold;
-    color: #000;
+  &__main {
+    margin: 70px auto;
   }
 
-  em {
-    font-style: italic;
-  }
+  &__thread-content {
+    @include text-style();
+    line-height: 1.5;
+    padding: 20px 20px 0 20px;
+    max-width: 1200px;
+    @include flex-container(column, flex-start, flex-start);
 
-  p {
-    margin-bottom: 1em;
-  }
+    strong {
+      font-weight: bold;
+      color: #000;
+    }
 
-  ul {
-    padding-left: 20px;
-    list-style-type: disc;
-  }
+    em {
+      font-style: italic;
+    }
 
-  a {
-    color: $secondary-color;
-    text-decoration: underline;
+    p {
+      margin-bottom: 1em;
+    }
 
-    &:hover {
-      text-decoration: none;
+    ul {
+      padding-left: 20px;
+      list-style-type: disc;
+    }
+
+    a {
+      color: $secondary-color;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }

@@ -5,6 +5,7 @@ import "../styles/form.scss";
 
 const Form = ({ forms, button }) => {
   const threadData = useStore((state) => state.threadData);
+  console.log("🚀 ~ Form ~ threadData:", threadData)
   const { acceptHilo } = useThreadData();
 
   // Estado para manejar las respuestas del usuario
@@ -70,30 +71,30 @@ const Form = ({ forms, button }) => {
 
   // Enviar el hilo aceptado con las respuestas del formulario
   const handleAcceptHilo = async () => {
-    const updatedThreadData = {
-      ...threadData,
-      closed: true,
-      agreement: {
-        ...threadData.agreement,
-        forms: threadData.agreement.forms.map((form) => ({
-          ...form,
-          questions: form.questions.map((question) => {
-            if (formResponses[question.qid]) {
-              return {
-                ...question,
-                answered: true, // Indica que la pregunta fue respondida
-                response: formResponses[question.qid], // Respuestas del usuario
-              };
-            }
-            return question;
-          }),
-        })),
-      },
-    };
+    // const updatedThreadData = {
+    //   ...threadData,
+    //   closed: true,
+    //   agreement: {
+    //     ...threadData.agreement,
+    //     forms: threadData.agreement.forms.map((form) => ({
+    //       ...form,
+    //       questions: form.questions.map((question) => {
+    //         if (formResponses[question.qid]) {
+    //           return {
+    //             ...question,
+    //             answered: true, // Indica que la pregunta fue respondida
+    //             response: formResponses[question.qid], // Respuestas del usuario
+    //           };
+    //         }
+    //         return question;
+    //       }),
+    //     })),
+    //   },
+    // };
 
     try {
       // Realiza la solicitud de aceptación con los datos actualizados
-      await acceptHilo(updatedThreadData);
+      await acceptHilo(threadData);
       console.log("Hilo aceptado con éxito.");
     } catch (error) {
       console.error("Error al aceptar el hilo:", error);
@@ -101,7 +102,7 @@ const Form = ({ forms, button }) => {
   };
 
   return (
-    <div className="form">
+    <div className={`form ${threadData.closed ? 'form--disabled' : ''}`}>
       {forms?.map((form) => (
         <div key={form.fid} className="form__item">
           <h3 className="form__title">{form.title}</h3>
@@ -111,25 +112,27 @@ const Form = ({ forms, button }) => {
 
               {/* Renderizar los checkboxes */}
               {question.type === "CHECK" &&
-                question.options.map((option) => (
-                  <div key={option.oid} className="form__checkbox-container">
-                    <input
-                      type="checkbox"
-                      className="form__checkbox"
-                      onChange={() =>
-                        handleCheckboxChange(form.fid, question.qid, option.oid)
-                      }
-                      checked={
-                        threadData.agreement.forms
-                          .find((f) => f.fid === form.fid)
-                          ?.questions.find((q) => q.qid === question.qid)
-                          ?.options.find((o) => o.oid === option.oid)
-                          ?.selected || false
-                      }
-                    />
-                    <span className="form__checkbox-label">{option.label}</span>
-                  </div>
-                ))}
+                question.options.map((option) => {
+                  const isSelected = threadData.agreement.forms
+                    .find((f) => f.fid === form.fid)
+                    ?.questions.find((q) => q.qid === question.qid)
+                    ?.options.find((o) => o.oid === option.oid)?.selected || false;
+
+                  return (
+                    <div key={option.oid} className="form__checkbox-container">
+                      <input
+                        type="checkbox"
+                        className={`form__checkbox ${isSelected ? 'checked' : ''}`}
+                        onChange={() =>
+                          handleCheckboxChange(form.fid, question.qid, option.oid)
+                        }
+                        checked={isSelected}
+                        disabled={threadData.closed} // Deshabilita el checkbox si el hilo está cerrado
+                      />
+                      <span className="form__checkbox-label">{option.label}</span>
+                    </div>
+                  );
+                })}
 
               {/* Renderizar los inputs de texto */}
               {question.type === "TEXT" && (
@@ -142,6 +145,7 @@ const Form = ({ forms, button }) => {
                   }
                   minLength={question.options[0]?.input?.min || 0}
                   maxLength={question.options[0]?.input?.max || 100}
+                  disabled={threadData.closed} // Deshabilita el input de texto si el hilo está cerrado
                 />
               )}
             </div>
@@ -149,7 +153,7 @@ const Form = ({ forms, button }) => {
         </div>
       ))}
       {threadData.closed ? (
-        <p className="form__status">Hilo aceptado</p>
+        <p className="form__status">Hilo aceptado - Formulario inhabilitado</p>
       ) : (
         <button className="form__button" onClick={handleAcceptHilo}>
           {button?.accept_button_text}

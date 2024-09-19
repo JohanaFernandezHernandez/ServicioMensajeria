@@ -6,6 +6,7 @@ $primary-color: white;
 $secondary-color: #ca8888;
 $tertiary-color: #e2ecf980;
 
+//navbar
 .navbar {
   @include flex-container(center, center, center);
   position: fixed;
@@ -39,7 +40,7 @@ $tertiary-color: #e2ecf980;
 
   // Menú desplegable
   &__menu {
-    display: flex; // Menú visible por defecto
+    display: flex; 
     align-items: flex-start;
 
     @include dispositivo(tablet) {
@@ -48,7 +49,7 @@ $tertiary-color: #e2ecf980;
       width: 100%;
       background-color: $primary-color;
       position: absolute;
-      top: 60px; // Ajusta según el tamaño del botón hamburguesa
+      top: 60px; 
       left: 0;
       transform: translateY(-10px);
       transition: transform 0.3s ease-in-out;
@@ -93,6 +94,7 @@ $tertiary-color: #e2ecf980;
   }
 }
 
+//Button estados
 .button_estados {
   text-decoration: none;
   width: 300px;
@@ -106,15 +108,15 @@ $tertiary-color: #e2ecf980;
   cursor: pointer;
   @include flex-container(row, center, center);
 
-  &:focus {
-    outline: none;
-  }
   &:hover {
     background-color: #a65a5a;
+  }
+
+  &:focus {
+    outline: none;
   }
 
   span {
     color: $primary-color;
   }
-  
 }

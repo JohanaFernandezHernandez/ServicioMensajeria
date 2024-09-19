@@ -1,3 +1,4 @@
+// Importa mixins necesarios
 @use "./mixins/text-style" as *;
 @use "./mixins/flex-container" as *;
 
@@ -68,6 +69,30 @@
 
     &:hover {
       background-color: #a65a5a;
+    }
+  }
+
+  // Estilos para el estado deshabilitado
+  &--disabled {
+    opacity: 0.5; 
+    pointer-events: none; 
+
+    .form__checkbox {
+      cursor: not-allowed; 
+    }
+
+    .form__text-input {
+      background-color: #f5f5f5; 
+      border-color: #ddd; 
+    }
+
+    .form__button {
+      background-color: #ddd; 
+      color: #aaa; 
+      cursor: not-allowed;
+      &:hover {
+        background-color: #ddd; 
+      }
     }
   }
 }
