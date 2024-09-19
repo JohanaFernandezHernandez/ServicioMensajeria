@@ -29,7 +29,6 @@ export const useThreadData = () => {
 
   //Envió post al aceptar el hilo
   const acceptHilo = async (threadData) => {
-    console.log("🚀 ~ acceptHilo ~ threadData:", threadData)
     try {
       const response = await axios.post(
         `https://api-sandbox.confirmsign.com/v4.0/threads/token/${CFSKEY}/${CFSTOKEN}/agreement/true`,
