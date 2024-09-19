@@ -11,20 +11,21 @@ El receptor puede aceptar el hilo de comunicación. El **Navbar** proporciona ac
 
 ## Instalación 🔧
 
-1. clona el repositorio.
+1. Clona el repositorio.
    ```bash
    https://github.com/JohanaFernandezHernandez/ServicioMensajeria.git
    
-2. Instala las dependencias
-  __`npm install`__
+2. Luego realiza un cd a la carpeta principal y Instala las dependencias:
+    - __`npm install`__
+    
 
-3. crea un archivo `.env` con las siguientes variables:
+3. Crea un archivo `.env` con las siguientes variables:
         
     - `VITE_CFSKEY`= *tu_llave_CFSKEY*
     - `VITE_CFSTOKEN`= *tu_token_CFSTOKEN*
 
 4.Después de esto puedes arrancar la aplicación con:
-   __`npm run dev`__
+   - __`npm run dev`__
 
 
 
