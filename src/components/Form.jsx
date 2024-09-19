@@ -103,18 +103,19 @@ const Form = ({ forms, button }) => {
   return (
     <div className="form">
       {forms?.map((form) => (
-        <div key={form.fid}>
-          <h3>{form.title}</h3>
+        <div key={form.fid} className="form__item">
+          <h3 className="form__title">{form.title}</h3>
           {form.questions.map((question) => (
-            <div key={question.qid}>
-              <label>{question.label}</label>
+            <div key={question.qid} className="form__question">
+              <label className="form__question-label">{question.label}</label>
 
               {/* Renderizar los checkboxes */}
               {question.type === "CHECK" &&
                 question.options.map((option) => (
-                  <div key={option.oid}>
+                  <div key={option.oid} className="form__checkbox-container">
                     <input
                       type="checkbox"
+                      className="form__checkbox"
                       onChange={() =>
                         handleCheckboxChange(form.fid, question.qid, option.oid)
                       }
@@ -125,8 +126,8 @@ const Form = ({ forms, button }) => {
                           ?.options.find((o) => o.oid === option.oid)
                           ?.selected || false
                       }
-                    />{" "}
-                    {option.label}
+                    />
+                    <span className="form__checkbox-label">{option.label}</span>
                   </div>
                 ))}
 
@@ -134,6 +135,7 @@ const Form = ({ forms, button }) => {
               {question.type === "TEXT" && (
                 <input
                   type="text"
+                  className="form__text-input"
                   value={formResponses[question.qid] || ""}
                   onChange={(e) =>
                     handleTextChange(question.qid, e.target.value)
@@ -147,11 +149,11 @@ const Form = ({ forms, button }) => {
         </div>
       ))}
       {threadData.closed ? (
-        <>
-          <p className="">Hilo aceptado</p>
-        </>
+        <p className="form__status">Hilo aceptado</p>
       ) : (
-        <button onClick={handleAcceptHilo}>{button?.accept_button_text}</button>
+        <button className="form__button" onClick={handleAcceptHilo}>
+          {button?.accept_button_text}
+        </button>
       )}
     </div>
   );

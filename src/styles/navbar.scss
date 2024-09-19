@@ -109,8 +109,12 @@ $tertiary-color: #e2ecf980;
   &:focus {
     outline: none;
   }
+  &:hover {
+    background-color: #a65a5a;
+  }
 
   span {
     color: $primary-color;
   }
+  
 }
