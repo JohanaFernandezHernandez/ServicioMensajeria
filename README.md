@@ -1,5 +1,4 @@
 # Servicio Mensajería - Grupo Arestora.
----
 
 ## Descripción 🚀
 
@@ -16,13 +15,17 @@ El receptor puede aceptar el hilo de comunicación. El **Navbar** proporciona ac
    ```bash
    https://github.com/JohanaFernandezHernandez/ServicioMensajeria.git
    
-2. Instala las dependencias __*npm install*__.
+2. Instala las dependencias
+  __`npm install`__
+
 3. crea un archivo `.env` con las siguientes variables:
+        
+    - `VITE_CFSKEY`= *tu_llave_CFSKEY*
+    - `VITE_CFSTOKEN`= *tu_token_CFSTOKEN*
 
-    `VITE_CFSKEY`= *tu_llave_CFSKEY*
-    `VITE_CFSTOKEN`= *tu_token_CFSTOKEN*
+4.Después de esto puedes arrancar la aplicación con:
+   __`npm run dev`__
 
-4.Después de esto puedes arrancar la aplicación con __*npm run dev*__
 
 
 ## Construido con 🛠️
@@ -51,4 +54,5 @@ Este proyecto es una prueba técnica y representa una versión preliminar. No se
 ## Autora ✒️
 
 __*Johana Fernández Hernández*__
+
 *Desarrolladora FrontEnd*
