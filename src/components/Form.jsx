@@ -5,7 +5,7 @@ import "../styles/form.scss";
 const Form = ({ threadData, button }) => {
   const { acceptHilo } = useThreadData();
 
-  // Estado local para manejar el estado visual de los checkboxes
+  // Estado local checkboxes
   const [localCheckboxState, setLocalCheckboxState] = useState(() => {
     const initialState = {};
     threadData?.agreement?.forms.forEach((form) => {
@@ -38,7 +38,7 @@ const Form = ({ threadData, button }) => {
     return localCheckboxState[`${fid}-${qid}-${oid}`] || false;
   };
 
-  // Obtener el valor de los inputs de texto desde el estado local
+  // Obtener el valor de los inputs
   const getTextInputValue = (fid, qid) => {
     return textInputValues[`${fid}-${qid}`] || "";
   };
